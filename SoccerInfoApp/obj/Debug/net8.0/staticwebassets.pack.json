@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "/Users/justinpark/throtl/c#/turn5-practice/SoccerInfoApp/obj/Debug/net8.0/scopedcss/projectbundle/SoccerInfoApp.bundle.scp.css",
+      "PackagePath": "staticwebassets/SoccerInfoApp.bundle.scp.css"
+    },
+    {
+      "Id": "/Users/justinpark/throtl/c#/turn5-practice/SoccerInfoApp/wwwroot/app.css",
+      "PackagePath": "staticwebassets/app.css"
+    },
+    {
+      "Id": "/Users/justinpark/throtl/c#/turn5-practice/SoccerInfoApp/wwwroot/bootstrap/bootstrap.min.css",
+      "PackagePath": "staticwebassets/bootstrap/bootstrap.min.css"
+    },
+    {
+      "Id": "/Users/justinpark/throtl/c#/turn5-practice/SoccerInfoApp/wwwroot/bootstrap/bootstrap.min.css.map",
+      "PackagePath": "staticwebassets/bootstrap/bootstrap.min.css.map"
+    },
+    {
+      "Id": "/Users/justinpark/throtl/c#/turn5-practice/SoccerInfoApp/wwwroot/favicon.png",
+      "PackagePath": "staticwebassets/favicon.png"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.SoccerInfoApp.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.build.SoccerInfoApp.props",
+      "PackagePath": "build\\SoccerInfoApp.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.SoccerInfoApp.props",
+      "PackagePath": "buildMultiTargeting\\SoccerInfoApp.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.SoccerInfoApp.props",
+      "PackagePath": "buildTransitive\\SoccerInfoApp.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
