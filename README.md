@@ -6,3 +6,5 @@
    - run `dotnet --info`
 3. How to create the app (Similar to React.js)
    - run `dotnet new blazor -o ProjectName`
+4. Open a project locally
+   - run `dotnet run`
