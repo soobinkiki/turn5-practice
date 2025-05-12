@@ -1,0 +1,100 @@
+@page "/random-player"
+@rendermode InteractiveServer
+
+@inject HttpClient Http
+@inject NavigationManager Navigation
+
+<PageTitle>Random Player</PageTitle>
+
+<button @onclick="GoBack">Back to Main</button>
+<h1>Random Player Info</h1>
+
+<button @onclick="FetchPlayer">Get Player Info</button>
+
+@if (IsLoading)
+{
+    <p>Loading...</p>
+}
+else if (!string.IsNullOrEmpty(PlayerName))
+{
+    <p>Player Name: <strong>@PlayerName</strong></p>
+    <p>Nationality: <strong>@PlayerNationality</strong></p>
+    <p>Club: <strong>@PlayerTeam</strong></p>
+    <p>Born: <strong>@PlayerBorn</strong></p>
+}
+else
+{
+    <p>No player information found</p>
+}
+
+@code {
+    public string? PlayerName;
+    public string? PlayerTeam;
+    public string? PlayerNationality;
+    public string? PlayerBorn;
+    public bool IsLoading = false;
+
+    public async Task FetchPlayer()
+    {
+        IsLoading = true;
+        PlayerName = null;
+        PlayerTeam = null;
+        PlayerNationality = null;
+        PlayerBorn = null;
+
+        try
+        {
+            var random = new Random();
+            int randomId = random.Next(34145000, 34147001); // random ID between 34145800 and 34146200
+
+            string url = $"https://www.thesportsdb.com/api/v1/json/3/lookupplayer.php?id={randomId}";
+
+            var response = await Http.GetFromJsonAsync<PlayerResponse>(url);
+
+            var player = response?.players?.FirstOrDefault();
+            
+            @* 
+            ******** var player = response?.players?.FirstOrDefault();
+            ******** same as below
+            .then(data => {
+              let player = data.players ? data.players[0] : null;
+              console.log(player);
+            }) 
+            *@
+
+            if (player != null)
+            {
+                PlayerName = player.strPlayer;
+                PlayerTeam = player.strTeam;
+                PlayerNationality = player.strNationality;
+                PlayerBorn = player.dateBorn;
+            }
+            else
+            {
+                PlayerName = $"No player found for ID {randomId}";
+            }
+        }
+        catch (Exception ex)
+        {
+            PlayerName = $"Error: {ex.Message}";
+        }
+
+        IsLoading = false;
+    }
+    public void GoBack()
+    {
+      Navigation.NavigateTo("/");
+    }
+    public class PlayerResponse
+    {
+        public List<Player>? players { get; set; }
+    }
+
+    public class Player
+    {
+        public string? strPlayer { get; set; }
+        public string? strTeam { get; set; }
+        public string? strNationality { get; set; }
+        public string? dateBorn { get; set; }
+    }
+}

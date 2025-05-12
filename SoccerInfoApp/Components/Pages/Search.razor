@@ -1,0 +1,80 @@
+@page "/search"
+@rendermode InteractiveServer
+@inherits LayoutComponentBase
+
+@inject HttpClient Http
+@inject NavigationManager Navigation
+
+<PageTitle>Search</PageTitle>
+
+<button @onclick="GoBack">Back to Main</button>
+<h1>Search your favorite team</h1>
+
+<!-- Input field for team name -->
+<input @bind="teamName" placeholder="Enter team name" />
+
+<!-- Search button -->
+<button @onclick="SearchTeam">Search</button>
+
+<!-- Display results -->
+@if (!string.IsNullOrEmpty(strTeam))
+{
+    <p><strong>Team Name:</strong> @strTeam</p>
+    <p><strong>Team Description:</strong> @strDescriptionEN</p>
+}
+
+@code {
+    // The team name entered by the user
+    private string? teamName;
+
+    // Variables to store the fetched team data
+    private string? strTeam;
+    private string? strDescriptionEN;
+
+    // Method to search for a team
+    private async Task SearchTeam()
+    {
+        if (string.IsNullOrEmpty(teamName)) return;
+
+        // API URL with the entered team name
+        string apiUrl = $"https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t={teamName}";
+
+        // Fetch data from the API
+        var response = await Http.GetFromJsonAsync<TeamResponse>(apiUrl);
+
+        // Check if response is not null and contains teams
+        if (response?.teams?.Any() == true)
+        {
+            // Get the first team in the list
+            var team = response.teams.First();
+
+            // Assign the team data to the local variables
+            strTeam = team.strTeam;
+            strDescriptionEN = team.strDescriptionEN;
+        }
+        else
+        {
+            // Handle the case when no teams are found
+            strTeam = "No team found.";
+            strDescriptionEN = string.Empty;
+        }
+    }
+
+    public void GoBack()
+    {
+      Navigation.NavigateTo("/");
+    }
+
+    // Class to represent the response from the API
+    public class TeamResponse
+    {
+        public List<Team> teams { get; set; }
+    }
+
+    // Class to represent each team in the API response
+    public class Team
+    {
+        public string? strTeam { get; set; }
+        public string? strDescriptionEN { get; set; }
+    }
+}
